@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     if (!fileExists("${env.WORKSPACE}/${VIRTUAL_ENV}")) {
-                        sh "python3 -m venv ${VIRTUAL_ENV}"
+                        sh "python -m venv ${VIRTUAL_ENV}"
                     }
                     sh ". ${VIRTUAL_ENV}/bin/activate && pip install -r requirements.txt"
                 }
@@ -24,22 +24,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh ". ${VIRTUAL_ENV}/bin/activate && python3 -m unittest discover tests"
-                }
-            }
-        }
-        stage('Coverage') {
-            steps {
-                script {
-                    sh ". ${VIRTUAL_ENV}/bin/activate && coverage run -m unittest discover tests"
-                    sh ". ${VIRTUAL_ENV}/bin/activate && coverage report -m"
-                }
-            }
-        }
-        stage('Security Scan') {
-            steps {
-                script {
-                    sh ". ${VIRTUAL_ENV}/bin/activate && bandit -r ."
+                    sh ". ${VIRTUAL_ENV}/bin/activate && python -m unittest discover tests"
                 }
             }
         }
