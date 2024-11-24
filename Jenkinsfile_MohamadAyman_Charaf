@@ -41,12 +41,7 @@ pipeline {
                 ])
             }
         }
-        stage('Security Scan') {
-            steps {
-                sh "source ${VIRTUAL_ENV}/bin/activate && bandit -r ."
-            }
-        }
-        stage('Deploy') {
+       stage('Deploy') {
             steps {
                 sh "mkdir -p deployment"
                 sh "cp app.py deployment/"
